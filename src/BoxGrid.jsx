@@ -12,6 +12,7 @@ export default function BoxGrid() {
       <Box />
       <Box />
       <Box />
+      <button>Reset</button>
     </div>
   );
 }
