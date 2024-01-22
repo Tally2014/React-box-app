@@ -2,18 +2,40 @@ import Box from "./Box";
 import { useState } from "react";
 
 export default function BoxGrid() {
-  const [resetCounter, setResetCounter] = useState(0);
+  const [boxes, setBoxes] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
 
-  const handleReset = () => {
-    setResetCounter(resetCounter + 1);
+  const reset = () => {
+    setBoxes([false, false, false, false, false, false, false, false, false]);
+  };
+
+  const toggleBox = (idx) => {
+    setBoxes((oldBoxes) => {
+      return oldBoxes.map((value, i) => {
+        if (i === idx) {
+          return !value;
+        } else {
+          return value;
+        }
+      });
+    });
   };
 
   return (
     <div>
-      {[...Array(9)].map((_, index) => (
-        <Box key={index} resetCounter={resetCounter} />
+      {boxes.map((b, index) => (
+        <Box key={index} isActive={b} toggle={() => toggleBox(index)} />
       ))}
-      <button onClick={handleReset}>Reset</button>
+      <button onClick={reset}>Reset</button>
     </div>
   );
 }
